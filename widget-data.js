@@ -1,0 +1,1 @@
+callback( {"html":'<div><h2>Widget</h2><form><input type="file" /><br/><button id="submit" type="submit">Submit</button></form></div>'} );

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<body>
+Test
+<div>
+<h2>Widget</h2><form><input type="file" /><br/><button id="submit" type="submit">Submit</button></form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){
+	 var homeURL = "http://iamwillsaunders.com/";
+	$('#submit').on('click', function(e){
+      e.preventDefault();
+      var file = $('input').eq(0)[0].files[0];
+      console.log(file)
+      var fd = new FormData();
+      fd.append('file', file);
+      
+      // $.ajax({type:'POST',url:homeURL+'widget-upload.php', data:fd,processData:false,contentType:false}).done(function(data){
+      //   console.log(data)
+      // })
+    })
+})
+</script>
+</body>
+</html>
+
