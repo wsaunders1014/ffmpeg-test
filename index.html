@@ -8,6 +8,7 @@
     <input type="file" name="video" id="fileupload"/><br/>
     <button id="submit" type="submit">Submit</button>
   </form>
+  <progress></progress>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
 <script>
@@ -31,7 +32,22 @@ $(document).ready(function(){
         type: 'POST',
         contentType: false,
         data: new FormData($('#video-upload')[0]),  // The form with the file inputs.
-        processData: false  // Using FormData, don't process data.
+        processData: false,  // Using FormData, don't process data.
+        xhr: function() {
+            var myXhr = $.ajaxSettings.xhr();
+            if (myXhr.upload) {
+                // For handling the progress of the upload
+                myXhr.upload.addEventListener('progress', function(e) {
+                    if (e.lengthComputable) {
+                        $('progress').attr({
+                            value: e.loaded,
+                            max: e.total,
+                        });
+                    }
+                } , false);
+            }
+            return myXhr;
+        }
       }).done(function(data){
         console.log(data);
         $('body').append('<video controls autoplay><source src="'+data+'" type="video/mp4"></video>');
